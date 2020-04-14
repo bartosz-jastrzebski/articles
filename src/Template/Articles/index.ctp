@@ -1,13 +1,14 @@
 <!-- File: src/Template/Articles/index.ctp -->
 
 <h1>Articles</h1>
-<?= $this->Html->link('Add Article', ['action' => 'add']) ?>
-<table>
-    <tr>
+<?= $this->Html->link('Add Article', ['action' => 'add'], ['class' => 'btn btn-primary mt-3 mb-3']) ?>
+
+<table class="table table-striped">
+    <thead class="thead-dark">
         <th>Title</th>
         <th>Created</th>
         <th>Action</th>
-    </tr>
+    </thead>
 
     <!-- Here is where we iterate through our $articles query object, printing out article info -->
 

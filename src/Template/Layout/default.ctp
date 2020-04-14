@@ -27,30 +27,37 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <?= $this->Html->meta('icon') ?>
 
-    <?= $this->Html->css('base.css') ?>
+    <!-- <?= $this->Html->css('base.css') ?>
     <?= $this->Html->css('style.css') ?>
 
     <?= $this->fetch('meta') ?>
-    <?= $this->fetch('css') ?>
+    <?= $this->fetch('css') ?> -->
     <?= $this->fetch('script') ?>
 </head>
 <body>
-    <nav class="top-bar expanded" data-topbar role="navigation">
-        <ul class="title-area large-3 medium-4 columns">
-            <li class="name">
-                <h1><a href=""><?= $this->fetch('title') ?></a></h1>
-            </li>
-        </ul>
-        <div class="top-bar-section">
-            <ul class="right">
-                <li><a target="_blank" href="https://book.cakephp.org/3.0/">Documentation</a></li>
-                <li><a target="_blank" href="https://api.cakephp.org/3.0/">API</a></li>
-            </ul>
+    <nav class="navbar navbar-light bg-dark" data-topbar role="navigation">    
+        <h1 class="navbar-brand text-light"><?= $this->fetch('title') ?></h1>
+        <div>
+        <?php
+            if($this->request->session()->read('Auth.User')) {
+            // user is logged in, show logout..user menu etc
+                echo $this->Html->link('Users', 
+                                    ['action' => 'index'], 
+                                    ['class' => 'px-2']);
+                echo $this->Html->link('Logout', array('controller'=>'users', 'action'=>'logout')); 
+            } else {
+            // the user is not logged in
+                echo $this->Html->link( 'Login', array('controller'=>'users', 'action'=>'login')); 
+            }
+            ?>
         </div>
     </nav>
-    <?= $this->Flash->render() ?>
-    <div class="container clearfix">
-        <?= $this->fetch('content') ?>
+
+    <div class="jumbotron">
+        <div class="container clearfix">
+        <p><?= $this->Flash->render() ?></p>
+            <?= $this->fetch('content') ?>
+        </div>
     </div>
     <footer>
     </footer>

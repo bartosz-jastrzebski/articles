@@ -4,22 +4,25 @@
  * @var \App\Model\Entity\User[]|\Cake\Collection\CollectionInterface $users
  */
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('New User'), ['action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Articles'), ['controller' => 'Articles', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Article'), ['controller' => 'Articles', 'action' => 'add']) ?></li>
-    </ul>
+<nav>
+    <h3 class="navbar-brand"><?= __('Actions:') ?></h3>
+    <?= $this->Html->link(__('New User'), 
+                          ['action' => 'add'], 
+                          ['class' => 'px-2']) ?>
+    <?= $this->Html->link(__('List Articles'), 
+                          ['controller' => 'Articles', 'action' => 'index'], 
+                          ['class' => 'px-2']) ?>
+    <?= $this->Html->link(__('New Article'), 
+                          ['controller' => 'Articles', 'action' => 'add'],  
+                          ['class' => 'px-2']) ?>
 </nav>
-<div class="users index large-9 medium-8 columns content">
+<div>
     <h3><?= __('Users') ?></h3>
-    <table cellpadding="0" cellspacing="0">
-        <thead>
+    <table class="table table-striped" cellpadding="0" cellspacing="0">
+        <thead class="thead-dark">
             <tr>
                 <th scope="col"><?= $this->Paginator->sort('id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('email') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('password') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('created') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('modified') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
@@ -30,7 +33,6 @@
             <tr>
                 <td><?= $this->Number->format($user->id) ?></td>
                 <td><?= h($user->email) ?></td>
-                <td><?= h($user->password) ?></td>
                 <td><?= h($user->created) ?></td>
                 <td><?= h($user->modified) ?></td>
                 <td class="actions">
@@ -45,9 +47,13 @@
     <div class="paginator">
         <ul class="pagination">
             <?= $this->Paginator->first('<< ' . __('first')) ?>
+            &nbsp
             <?= $this->Paginator->prev('< ' . __('previous')) ?>
+            &nbsp
             <?= $this->Paginator->numbers() ?>
+            &nbsp
             <?= $this->Paginator->next(__('next') . ' >') ?>
+            &nbsp
             <?= $this->Paginator->last(__('last') . ' >>') ?>
         </ul>
         <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')]) ?></p>
