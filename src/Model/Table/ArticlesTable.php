@@ -18,16 +18,25 @@ class ArticlesTable extends Table
         ]);
     }
     public function beforeSave($event, $entity, $options)
-    {
+    {   
         if ($entity->tag_string) {
             $entity->tags = $this->_buildTags($entity->tag_string);
         }
         if ($entity->isNew() && !$entity->slug) {
             $sluggedTitle = Text::slug($entity->title);
             // trim slug to maximum length defined in schema
+            $search = $this->find()->where(['slug' => $sluggedTitle]);
+            if ($search) {
+                pr($sluggedTitle);
+                $sluggedTitle = $sluggedTitle . time();
+                pr($sluggedTitle);
+            } else {
+                pr('Nie');
+            }
             $entity->slug = substr($sluggedTitle, 0, 191);
         }
     }
+
     public function validationDefault(Validator $validator)
     {
         $validator
@@ -90,4 +99,5 @@ class ArticlesTable extends Table
         }
         return $out;
     }
+
 }
