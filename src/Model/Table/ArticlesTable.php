@@ -27,11 +27,7 @@ class ArticlesTable extends Table
             // trim slug to maximum length defined in schema
             $search = $this->find()->where(['slug' => $sluggedTitle]);
             if ($search) {
-                pr($sluggedTitle);
                 $sluggedTitle = $sluggedTitle . time();
-                pr($sluggedTitle);
-            } else {
-                pr('Nie');
             }
             $entity->slug = substr($sluggedTitle, 0, 191);
         }
