@@ -4,6 +4,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use App\Utility\EmailHandler;
 
 class ArticlesController extends AppController
 {
@@ -23,6 +24,9 @@ class ArticlesController extends AppController
     {
         $article = $this->Articles->findBySlug($slug)->contain(['Tags'])->firstOrFail();
         $this->set(compact('article'));
+        $mailer = new EmailHandler;
+        $mailer->send('bartosz.jastrzebski89@gmail.com');
+        $this->set('mailer', $mailer);
     }
     public function add()
     {
@@ -59,6 +63,8 @@ class ArticlesController extends AppController
             $this->Flash->error(__('Unable to update your article.'));
         }
         $tags = $this->Articles->Tags->find('list');
+        $mailer = new Sender();
+        $this->set('mailer', $mailer);
         $this->set('tags', $tags);
         $this->set('article', $article);
     }
@@ -71,7 +77,7 @@ class ArticlesController extends AppController
             $this->Flash->success(__('The {0} article has been deleted.', $article->title));
             return $this->redirect(['action' => 'index']);
         }
-    }
+   }
     public function tags()
     {
         // The 'pass' key is provided by CakePHP and contains all
@@ -88,5 +94,8 @@ class ArticlesController extends AppController
             'articles' => $articles,
             'tags' => $tags
         ]);
+    }
+    public function send_email($reciever) {
+        
     }
 }

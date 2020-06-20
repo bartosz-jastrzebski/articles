@@ -24,7 +24,6 @@ class ArticlesTable extends Table
         }
         if ($entity->isNew() && !$entity->slug) {
             $sluggedTitle = Text::slug($entity->title);
-            // trim slug to maximum length defined in schema
             $search = $this->find()->where(['slug' => $sluggedTitle]);
             if ($search) {
                 $sluggedTitle = $sluggedTitle . time();
