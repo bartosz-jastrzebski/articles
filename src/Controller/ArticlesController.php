@@ -24,8 +24,8 @@ class ArticlesController extends AppController
     {
         $article = $this->Articles->findBySlug($slug)->contain(['Tags'])->firstOrFail();
         $this->set(compact('article'));
-        $mailer = new EmailHandler;
-        $mailer->send('bartosz.jastrzebski89@gmail.com');
+        $mailer = new EmailHandler('bartosz.jastrzebski89@gmail.com');
+        $mailer->send();
         $this->set('mailer', $mailer);
     }
     public function add()

@@ -7,20 +7,27 @@ class EmailHandler {
     public $message = 'Siema';
     public $sender = 'bartosz.jastrzebski89@gmail.com';
     public $subject = 'From CakePHP';
+    public $header = 'Mysite';
 
-    public function send_to($reciever) {
+    function __construct($reciever) {
+        $this->reciever = $reciever;
+    }
+
+    public function send() {
         try {
             $email = new Email('default');
-            $email->from(['bartosz.jastrzebski89@gmail.com' => 'My Site'])
-        ->to('bartosz.jastrzebski89@gmail.com')
-        ->subject()
-        ->send('My message');
-        return True
-            }
-        }
-
-
+            $email->from([$this->sender => $this->header]);
+            $email->to($this->reciever);
+            $email->subject($this->subject);
+            $email->send($this->message);
+            $status = True;
+        } catch (Exception $e) {
+            $status = False;
+        };
+        return $status;
     }
+
+}
 
 
 ?>
